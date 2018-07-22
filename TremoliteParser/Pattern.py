@@ -1,17 +1,17 @@
 #
 #   Copyright (c) 2017-2018 Joy Diamond.  All rights reserved.
 #
-@gem('Tremolite_2.Pattern')
+@gem('TremoliteParser.Pattern')
 def gem():
-    require_gem('Tremolite_2.Core')
-    require_gem('Tremolite.Build')
-    require_gem('Tremolite.CreateMatch')
-    require_gem('Tremolite.Name')
+    require_gem('Restructure.Build')
+    require_gem('Restructure.CreateMatch')
+    require_gem('Restructure.Name')
+    require_gem('TremoliteParser.Core')
 
 
-    from Tremolite import create_match_code, ANY_OF, BACKSLASH, DOT, EMPTY, END_OF_PATTERN, EXACT
-    from Tremolite import G, LINEFEED, MATCH, NAME, NAMED_GROUP, NOT_ANY_OF, NOT_FOLLOWED_BY
-    from Tremolite import ONE_OR_MORE, OPTIONAL, PRINTABLE, PRINTABLE_MINUS, Q, ZERO_OR_MORE
+    from Restructure import create_match_code, ANY_OF, BACKSLASH, DOT, EMPTY, END_OF_PATTERN, EXACT
+    from Restructure import G, LINEFEED, MATCH, NAME, NAMED_GROUP, NOT_ANY_OF, NOT_FOLLOWED_BY
+    from Restructure import ONE_OR_MORE, OPTIONAL, PRINTABLE, PRINTABLE_MINUS, Q, ZERO_OR_MORE
 
 
     FULL_MATCH = MATCH
@@ -19,7 +19,7 @@ def gem():
 
 
     @share
-    def create__tremolite_2__match():
+    def create__tremolite_parser__match():
         alphanumeric_or_underscore = NAME('alphanumeric_or_underscore', ANY_OF('0-9', 'A-Z', '_', 'a-z'))
         letter_or_underscore       = NAME('letter_or_underscore',       ANY_OF('A-Z', '_', 'a-z'))
         ow                         = NAME('ow',                         ZERO_OR_MORE(' '))
@@ -120,6 +120,6 @@ def gem():
 
 
         #
-        #   Create ../Tremolite_2/Match.py
+        #   Create ../TremoliteParser/Match.py
         #
-        create_match_code('../Tremolite/Tremolite_2/Match.py', '2017-2018', 'Joy Diamond', 'Tremolite_2.Match')
+        create_match_code(path_join(module_path[0], 'Match.py'), '2017-2018', 'Joy Diamond', 'TremoliteParser.Match')

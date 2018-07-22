@@ -1,17 +1,17 @@
 #
-#   Copyright (c) 2017 Joy Diamond.  All rights reserved.
+#   Copyright (c) 2017-2018 Joy Diamond.  All rights reserved.
 #
-@gem('Tremolite.Match')
+@gem('Restructure.Match')
 def gem():
     require_gem('Gem.System')
-    require_gem('Tremolite.Compile')
+    require_gem('Rex.Compile')
 
 
     from Gem import python_version
-    from Tremolite import compile_regular_expression
+    from Rex import compile_regular_expression
 
 
-    if python_version == '2.7.12 (default, Nov 19 2016, 06:48:10) \n[GCC 5.4.0 20160609]':
+    if python_version == '2.7.12 (default, Dec  4 2017, 14:50:18) \n[GCC 5.4.0 20160609]':
         C = ((
             #
             #<copyright>
@@ -56,10 +56,10 @@ def gem():
 
 
     else:
-        require_gem('Tremolite.Parse')
+        require_gem('Rex.Parse')
 
 
-        from Tremolite import parse_ascii_regular_expression
+        from Rex import parse_ascii_regular_expression
 
 
         def M(regular_expression, code, groups = 0, flags = 0):

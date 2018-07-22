@@ -1,9 +1,9 @@
 #
 #   Copyright (c) 2017-2018 Joy Diamond.  All rights reserved.
 #
-@gem('Tremolite.CreateMatch')
+@gem('Restructure.CreateMatch')
 def gem():
-    require_gem('Tremolite.Name')
+    require_gem('Restructure.Name')
 
 
     @export
@@ -36,18 +36,18 @@ def gem():
 
             with f.indent('def gem():'):
                 f.line('require_gem(%r)', 'Gem.System')
-                f.line('require_gem(%r)', 'Tremolite.Compile')
+                f.line('require_gem(%r)', 'Rex.Compile')
 
                 if debug:
-                    f.line('require_gem(%r)', 'Tremolite.PatternWrapper')
+                    f.line('require_gem(%r)', 'Rex.PatternWrapper')
 
                 f.blank2()
                 f.line('from Gem import python_version')
 
                 if debug:
-                    f.line('from Tremolite import compile_regular_expression, create_wrapped_match_function')
+                    f.line('from Rex import compile_regular_expression, create_wrapped_match_function')
                 else:
-                    f.line('from Tremolite import compile_regular_expression')
+                    f.line('from Rex import compile_regular_expression')
 
                 f.blank2()
 
@@ -125,9 +125,9 @@ def gem():
                 f.blank2()
 
                 with f.indent('else:'):
-                    f.line('require_gem(%r)', 'Tremolite.Parse')
+                    f.line('require_gem(%r)', 'Rex.Parse')
                     f.blank2()
-                    f.line('from Tremolite import parse_ascii_regular_expression')
+                    f.line('from Rex import parse_ascii_regular_expression')
 
                     if debug:
                         f.blank2()
@@ -204,3 +204,5 @@ def gem():
                         f.line('%*s%s,', -total, arrange('%r,', v.name), v.name)
 
             data = f.finish()
+
+        line("Created: %s", path)

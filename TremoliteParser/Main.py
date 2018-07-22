@@ -23,9 +23,9 @@ def boot():
     import Gem
 
 
-@gem('Tremolite_2.Main')
+@gem('TremoliteParser.Main')
 def gem():
-    require_gem('Tremolite_2.Core')
+    require_gem('TremoliteParser.Core')
 
 
     show  = 0
@@ -36,11 +36,11 @@ def gem():
             remove_indentation = false,
             show               = 0,
     ):
-        require_gem('Tremolite_2.Pattern')
+        require_gem('TremoliteParser.Pattern')
 
-        create__tremolite_2__match()
+        create__tremolite_parser__match()
 
-        require_gem('Tremolite_2.Parse')                                #   Must be after 'create__tremolite_2__match'
+        require_gem('TremoliteParser.Parse')                            #   Must be after `create__tremolite_parser__match`
 
         parse_java('test.java', test = 7, show = show)
 

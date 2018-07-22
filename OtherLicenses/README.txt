@@ -42,7 +42,7 @@ For licenses copied from other projects:
 Here is a list of all files in the Tremolite sub project (of the Gem Project) that include other
 copyrights:
 
-    2.  Tremolite/Compile.py - Parts of which are licensed by:
+    2.  Rex/Compile.py - Parts of which are licensed by:
 
             #
             #<copyright>

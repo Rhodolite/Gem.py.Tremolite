@@ -1,10 +1,10 @@
 #
 #   Copyright (c) 2017-2018 Joy Diamond.  All rights reserved.
 #
-@gem('Tremolite_2.Parse')
+@gem('TremoliteParser.Parse')
 def gem():
-    require_gem('Tremolite_2.Core')
-    require_gem('Tremolite_2.Parse1')
+    require_gem('TremoliteParser.Core')
+    require_gem('TremoliteParser.Parse1')
 
 
     @share

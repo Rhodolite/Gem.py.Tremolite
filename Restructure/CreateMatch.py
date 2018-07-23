@@ -205,4 +205,4 @@ def gem():
 
             data = f.finish()
 
-        line("Created: %s", path)
+        #line("Created: %s", path)

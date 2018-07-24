@@ -1,10 +1,9 @@
 #
-#   Copyright (c) 2017 Joy Diamond.  All rights reserved.
+#   Copyright (c) 2017-2018 Joy Diamond.  All rights reserved.
 #
-@gem('Tremolite.PatternWrapper')
+@gem('Rex.PatternWrapper')
 def gem():
-    require_gem('Tremolite.Core')
-    require_gem('Tremolite.Compile')
+    require_gem('Rex.Core')
 
 
     show = true

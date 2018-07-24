@@ -1,44 +1,42 @@
 #
 #   Copyright (c) 2017-2018 Joy Diamond.  All rights reserved.
 #
-@gem('Tremolite.Build')
+@gem('Restructure.Build')
 def gem():
-    require_gem('Tremolite.Core')
-    require_gem('Tremolite.Compile')
-    require_gem('Tremolite.Parse')
-    require_gem('Tremolite.Match')
+    require_gem('Restructure.Core')
+    require_gem('Restructure.Match')
 
 
     show = false
 
 
     #
-    #   TremoliteBase
-    #       TremoliteExact
-    #       TremoliteGroupBase
-    #           TremoliteGroup
-    #           TremoliteName
-    #           TremoliteNamedGroup
-    #           TremoliteOptionalGroup
-    #       TremoliteMany
-    #           TremoliteAdd
-    #           TremoliteAnyOf
-    #           TremoliteOr
-    #       TremoliteOne
-    #           TremoliteNotFollowedBy
-    #           TremoliteOptional
-    #           TremoliteParenthesis
-    #           TremoliteRepeat
-    #       TremoliteSpecial
+    #   RestructureBase
+    #       RestructureExact
+    #       RestructureGroupBase
+    #           RestructureGroup
+    #           RestructureName
+    #           RestructureNamedGroup
+    #           RestructureOptionalGroup
+    #       RestructureMany
+    #           RestructureAdd
+    #           RestructureAnyOf
+    #           RestructureOr
+    #       RestructureOne
+    #           RestructureNotFollowedBy
+    #           RestructureOptional
+    #           RestructureParenthesis
+    #           RestructureRepeat
+    #       RestructureSpecial
     #
-    class TremoliteBase(Object):
+    class RestructureBase(Object):
         __slots__ = ((
             'regular_expression',       #   String
             'portray',                  #   String
         ))
 
 
-        is_tremolite_or = false
+        is_restructure_or = false
 
 
         #def __init__(t, regular_expression, portray):
@@ -49,10 +47,10 @@ def gem():
         def __add__(t, that):
             if type(that) is String:
                 that = INVISIBLE_EXACT(that)
-            elif that.is_tremolite_or:
+            elif that.is_restructure_or:
                 that = wrap_parenthesis(that)
 
-            return TremoliteAdd(
+            return RestructureAdd(
                        t.regular_expression + that.regular_expression,
                        t.portray + ' + ' + that.portray,
                        ((t, that)),
@@ -63,9 +61,9 @@ def gem():
             if type(that) is String:
                 that = INVISIBLE_EXACT(that)
             else:
-                assert not that.is_tremolite_or
+                assert not that.is_restructure_or
 
-            return TremoliteOr(
+            return RestructureOr(
                        t.regular_expression + '|' + that.regular_expression,
                        t.portray + ' | ' + that.portray,
                        ((t, that)),
@@ -91,16 +89,16 @@ def gem():
                    )
 
 
-    class TremoliteExact(TremoliteBase):
+    class RestructureExact(RestructureBase):
         __slots__ = ((
             'exact',                    #   String
             'singular',                 #   Boolean
         ))
 
 
-        is_tremolite_exact = true
-        optional           = true
-        repeatable         = true
+        is_restructure_exact = true
+        optional             = true
+        repeatable           = true
 
 
         def __init__(t, regular_expression, portray, exact, singular):
@@ -114,15 +112,15 @@ def gem():
             suffix = ('; singular'    if t.singular else    '')
 
             if t.regular_expression is t.exact:
-                return arrange('<TremoliteExact %s%s>', portray_string(t.regular_expression), suffix)
+                return arrange('<RestructureExact %s%s>', portray_string(t.regular_expression), suffix)
 
-            return arrange('<TremoliteExact %s %s%s>',
+            return arrange('<RestructureExact %s %s%s>',
                            portray_string(t.regular_expression),
                            portray_string(t.exact),
                            suffix)
 
 
-    class TremoliteGroupBase(TremoliteBase):
+    class RestructureGroupBase(RestructureBase):
         __slots__ = ((
             'name',                     #   String
             'pattern',                  #   String
@@ -155,15 +153,15 @@ def gem():
             return t.pattern.singular
 
 
-    class TremoliteGroup(TremoliteGroupBase):
+    class RestructureGroup(RestructureGroupBase):
         __slots__ = (())
 
 
-    class TremoliteName(TremoliteGroupBase):
+    class RestructureName(RestructureGroupBase):
         __slots__ = (())
 
 
-        is_tremolite_name = true
+        is_restructure_name = true
 
 
         def __init__(t, name, pattern):
@@ -172,11 +170,11 @@ def gem():
             t.pattern            = pattern
 
 
-    class TremoliteNamedGroup(TremoliteGroupBase):
+    class RestructureNamedGroup(RestructureGroupBase):
         __slots__ = (())
 
 
-    class TremoliteOptionalGroup(TremoliteGroupBase):
+    class RestructureOptionalGroup(RestructureGroupBase):
         __slots__ = (())
 
 
@@ -185,9 +183,9 @@ def gem():
         singular   = false
 
 
-    class TremoliteMany(TremoliteBase):
+    class RestructureMany(RestructureBase):
         __slots__ = ((
-            'many',                     #   Tuple of TremoliteBase+
+            'many',                     #   Tuple of RestructureBase+
         ))
 
 
@@ -208,7 +206,7 @@ def gem():
                            ' '.join((portray_string(v)   if type(v) is String else   portray(v))   for v in t.many))
 
 
-    class TremoliteAdd(TremoliteMany):
+    class RestructureAdd(RestructureMany):
         __slots__ = (())
 
 
@@ -218,17 +216,17 @@ def gem():
         def __add__(t, that):
             if type(that) is String:
                 that = INVISIBLE_EXACT(that)
-            elif that.is_tremolite_or:
+            elif that.is_restructure_or:
                 that = wrap_parenthesis(that)
 
-            return TremoliteAdd(
+            return RestructureAdd(
                        t.regular_expression + that.regular_expression,
                        t.portray + ' + ' + that.portray,
                        t.many + ((that,)),
                    )
 
 
-    class TremoliteAnyOf(TremoliteMany):
+    class RestructureAnyOf(RestructureMany):
         __slots__ = (())
 
 
@@ -236,17 +234,17 @@ def gem():
 
 
         def __repr__(t):
-            return arrange('<TremoliteAnyOf %s %s>',
+            return arrange('<RestructureAnyOf %s %s>',
                            portray_string(t.regular_expression),
                            ' '.join(portray_string(v)   for v in t.many))
 
 
-    class TremoliteOr(TremoliteMany):
+    class RestructureOr(RestructureMany):
         __slots__ = (())
 
 
-        is_tremolite_or = true
-        singular        = false
+        is_restructure_or = true
+        singular          = false
 
 
         def __add__(t, that):
@@ -257,14 +255,14 @@ def gem():
             if type(that) is String:
                 that = INVISIBLE_EXACT(that)
 
-            return TremoliteOr(
+            return RestructureOr(
                        t.regular_expression + '|' + that.regular_expression,
                        t.portray + ' | ' + that.portray,
                        t.many + ((that,)),
                    )
 
 
-    class TremoliteOne(TremoliteBase):
+    class RestructureOne(RestructureBase):
         __slots__ = ((
             'pattern',                  #   String
         ))
@@ -283,7 +281,7 @@ def gem():
             return arrange('<%s %s %r>', t.__class__.__name__, portray_string(t.regular_expression), t.pattern)
 
 
-    class TremoliteNotFollowedBy(TremoliteOne):
+    class RestructureNotFollowedBy(RestructureOne):
         __slots__ = (())
 
 
@@ -291,7 +289,7 @@ def gem():
         repeatable = false
 
 
-    class TremoliteOptional(TremoliteOne):
+    class RestructureOptional(RestructureOne):
         __slots__ = (())
 
 
@@ -299,7 +297,7 @@ def gem():
         repeatable = false
 
 
-    class TremoliteParenthesis(TremoliteOne):
+    class RestructureParenthesis(RestructureOne):
         __slots__ = (())
 
 
@@ -316,7 +314,7 @@ def gem():
             t.pattern            = pattern
 
 
-    class TremoliteRepeat(TremoliteOne):
+    class RestructureRepeat(RestructureOne):
         __slots__ = (())
 
 
@@ -325,7 +323,7 @@ def gem():
         singular   = true
 
 
-    class TremoliteSpecial(TremoliteBase):
+    class RestructureSpecial(RestructureBase):
         __slots__ = ((
             'repeatable',               #   Boolean
             'singular',                 #   Boolean
@@ -351,16 +349,16 @@ def gem():
                 else:
                     suffix = ''
 
-            return arrange('<TremoliteSpecial %s %s%s>', portray_string(t.regular_expression), t.portray, suffix)
+            return arrange('<RestructureSpecial %s %s%s>', portray_string(t.regular_expression), t.portray, suffix)
 
 
-    TremoliteSpecial.optional = TremoliteSpecial.repeatable
+    RestructureSpecial.optional = RestructureSpecial.repeatable
 
 
     [
             name_cache, name_insert_interned,
     ] = produce_cache_functions(
-            'name', TremoliteName,
+            'name', RestructureName,
 
             produce_cache           = true,
             produce_insert_interned = true,
@@ -382,7 +380,7 @@ def gem():
                 continue
 
             if type(v) is not String:
-                assert (v.is_tremolite_name) and (v.pattern.is_tremolite_exact) and (v.pattern.singular)
+                assert (v.is_restructure_name) and (v.pattern.is_restructure_exact) and (v.pattern.singular)
 
                 v = v.pattern.exact
 
@@ -427,7 +425,7 @@ def gem():
 
         regular_expressions.append(end)
 
-        return TremoliteAnyOf(
+        return RestructureAnyOf(
                    intern_string(''.join(regular_expressions)),
                    intern_arrange('%s(%s)', name, ', '.join(portray)),
                    Tuple(many),
@@ -463,13 +461,13 @@ def gem():
             assert m >= 2
 
             if question_mark:
-                return TremoliteOptional(
+                return RestructureOptional(
                            intern_arrange('%s{%d}?', suffix, m),
                            arrange('%s(%s, %d)', name, pattern, m),
                            pattern,
                        )
 
-            return TremoliteRepeat(
+            return RestructureRepeat(
                        intern_arrange('%s{%d}', suffix, m),
                        arrange('%s(%s, %d)', name, pattern, m),
                        pattern,
@@ -484,13 +482,13 @@ def gem():
                 suffix = arrange('{%d,}', m)
 
             if question_mark:
-                return TremoliteOptional(
+                return RestructureOptional(
                            intern_string(prefix + suffix + '?'),
                            arrange('%s(%s, %d)', name, pattern, m),
                            pattern,
                        )
 
-            return TremoliteRepeat(
+            return RestructureRepeat(
                        intern_string(prefix + suffix),
                        arrange('%s(%s, %d)', name, pattern, m),
                        pattern,
@@ -504,13 +502,13 @@ def gem():
             suffix = arrange('{%d,%d}', m, n)
 
         if question_mark:
-            return TremoliteOptional(
+            return RestructureOptional(
                        intern_string(prefix + suffix + '?'),
                        arrange('%s(%s, %d, %d)', name, pattern, m, n),
                        pattern,
                    )
 
-        return TremoliteRepeat(
+        return RestructureRepeat(
                    intern_string(prefix + suffix),
                    arrange('%s(%s, %d, %d)', name, pattern, m, n),
                    pattern,
@@ -524,7 +522,7 @@ def gem():
             assert pattern.repeatable
 
         if question_mark:
-            return TremoliteOptional(
+            return RestructureOptional(
                        (
                            intern_string(pattern.regular_expression + suffix + '?')
                                if pattern.singular else
@@ -534,7 +532,7 @@ def gem():
                        pattern,
                    )
 
-        return TremoliteRepeat(
+        return RestructureRepeat(
                    (
                        intern_string(pattern.regular_expression + suffix)
                            if pattern.singular else
@@ -548,7 +546,7 @@ def gem():
     def wrap_parenthesis(pattern, invisible = false):
         assert not pattern.singular
 
-        return TremoliteParenthesis(
+        return RestructureParenthesis(
                    intern_arrange('(?:%s)', pattern.regular_expression),
                    (pattern.portray   if invisible else   intern_arrange('(%s)', pattern.portray)),
                    pattern,
@@ -564,7 +562,7 @@ def gem():
     def EXACT(s):
         assert length(s) >= 1
 
-        return TremoliteExact(
+        return RestructureExact(
                    create_exact(s), intern_arrange('EXACT(%s)', portray_string(s)), intern_string(s), length(s) is 1,
                )
 
@@ -572,9 +570,9 @@ def gem():
     @export
     def G(name, pattern = absent):
         if pattern is absent:
-            assert name.is_tremolite_name
+            assert name.is_restructure_name
 
-            return TremoliteGroup(
+            return RestructureGroup(
                        intern_arrange('(?P<%s>%s)', name.name, name.regular_expression),
                        arrange('G(%s)', portray_string(name.name)),
                        name,
@@ -587,7 +585,7 @@ def gem():
         if type(pattern) is String:
             pattern = INVISIBLE_EXACT(pattern)
 
-        return TremoliteGroup(
+        return RestructureGroup(
                    intern_arrange('(?P<%s>%s)', name, pattern.regular_expression),
                    arrange('G(%s, %s)', portray_string(name), pattern),
                    name,
@@ -599,7 +597,7 @@ def gem():
     def INVISIBLE_EXACT(s):
         assert (type(s) is String) and (length(s) >= 1)
 
-        return TremoliteExact(
+        return RestructureExact(
                    create_exact(s), intern_string(portray_string(s)), intern_string(s), length(s) is 1,
                )
 
@@ -639,7 +637,7 @@ def gem():
 
         interned_name = intern_string(name)
 
-        return name_insert_interned(interned_name, TremoliteName(interned_name, pattern))
+        return name_insert_interned(interned_name, RestructureName(interned_name, pattern))
 
 
     @export
@@ -654,7 +652,7 @@ def gem():
 
         return name_insert_interned(
                    interned_name,
-                   TremoliteNamedGroup(
+                   RestructureNamedGroup(
                        intern_arrange('(?P<%s>%s)', interned_name, pattern.regular_expression),
                        interned_name,
                        interned_name,
@@ -673,7 +671,7 @@ def gem():
         if type(pattern) is String:
             pattern = INVISIBLE_EXACT(pattern)
 
-        return TremoliteNotFollowedBy(
+        return RestructureNotFollowedBy(
                    intern_arrange('(?!%s)', pattern.regular_expression),
                    intern_arrange('NOT_FOLLOWED_BY(%s)', pattern.portray),
                    pattern,
@@ -693,9 +691,9 @@ def gem():
     @export
     def Q(name, pattern = absent):
         if pattern is absent:
-            assert name.is_tremolite_name
+            assert name.is_restructure_name
 
-            return TremoliteGroup(
+            return RestructureGroup(
                        intern_arrange('(?P<%s>%s)?', name.name, name.regular_expression),
                        arrange('Q(%s)', portray_string(name.name)),
                        name,
@@ -710,7 +708,7 @@ def gem():
         if name_match(name) is none:
             raise_runtime_error('Q: invalid group name: %s (expected a python identifier)', name)
 
-        return TremoliteOptionalGroup(
+        return RestructureOptionalGroup(
                    intern_arrange('(?P<%s>%s)?', name, pattern.regular_expression),
                    arrange('Q(%s, %s)', portray_string(name), pattern),
                    name,
@@ -744,7 +742,7 @@ def gem():
 
         for v in arguments:
             if type(v) is not String:
-                assert (v.is_tremolite_name) and (v.pattern.is_tremolite_exact) and (v.pattern.singular)
+                assert (v.is_restructure_name) and (v.pattern.is_restructure_exact) and (v.pattern.singular)
 
                 v = v.pattern.exact
 
@@ -847,7 +845,7 @@ def gem():
                 append_portray(portray_string(v))
                 append_many   (intern_string (v))
 
-        return TremoliteAnyOf(
+        return RestructureAnyOf(
                    intern_string(''.join(regular_expressions)),
                    intern_arrange('PRINTABLE_MINUS(%s)', ', '.join(portray)),
                    Tuple(many),
@@ -869,7 +867,7 @@ def gem():
         if not repeatable:
             assert not singular
 
-        return TremoliteSpecial(intern_string(regular_expression), intern_string(portray), repeatable, singular)
+        return RestructureSpecial(intern_string(regular_expression), intern_string(portray), repeatable, singular)
 
 
     @export

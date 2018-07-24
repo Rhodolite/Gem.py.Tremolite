@@ -1,9 +1,9 @@
 #
-#   Copyright (c) 2017 Joy Diamond.  All rights reserved.
+#   Copyright (c) 2017-2018 Joy Diamond.  All rights reserved.
 #
-@gem('Tremolite.Parse')
+@gem('Rex.Parse')
 def gem():
-    require_gem('Tremolite.Core')
+    require_gem('Rex.Core')
 
 
     PythonRegularExpressionCompile = import_module('sre_compile')

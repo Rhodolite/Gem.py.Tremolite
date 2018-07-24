@@ -1,12 +1,15 @@
 #
-#   Copyright (c) 2017 Joy Diamond.  All rights reserved.
+#   Copyright (c) 2017-2018 Joy Diamond.  All rights reserved.
 #
-@gem('Tremolite.Name')
+@gem('Restructure.Name')
 def gem():
-    class TremoliteMatch(Object):
+    debug = false
+
+
+    class RestructureMatch(Object):
         __slots__ = ((
             'name',                     #   String
-            'pattern',                  #   TremoliteBase+
+            'pattern',                  #   RestructureBase+
             'debug',                    #   Boolean
 
             'code',                     #   None | String | Tuple of (Integer | Long)
@@ -37,7 +40,7 @@ def gem():
     [
             match_cache, match_insert_interned,
     ] = produce_cache_functions(
-            'match', TremoliteMatch,
+            'match', RestructureMatch,
 
             produce_cache           = true,
             produce_insert_interned = true,
@@ -45,7 +48,7 @@ def gem():
 
 
     @export
-    def FULL_MATCH(name, pattern, debug = false):
+    def FULL_MATCH(name, pattern, debug = debug):
         assert (type(name) is String) and (length(name) > 0)
 
         if type(pattern) is String:
@@ -53,11 +56,11 @@ def gem():
 
         interned_name = intern_string(name)
 
-        return match_insert_interned(interned_name, TremoliteMatch(interned_name, pattern + END_OF_PATTERN, debug))
+        return match_insert_interned(interned_name, RestructureMatch(interned_name, pattern + END_OF_PATTERN, debug))
 
 
     @export
-    def MATCH(name, pattern, debug = false):
+    def MATCH(name, pattern, debug = debug):
         assert (type(name) is String) and (length(name) > 0)
 
         if type(pattern) is String:
@@ -65,7 +68,7 @@ def gem():
 
         interned_name = intern_string(name)
 
-        return match_insert_interned(interned_name, TremoliteMatch(interned_name, pattern, debug))
+        return match_insert_interned(interned_name, RestructureMatch(interned_name, pattern, debug))
 
 
     share(

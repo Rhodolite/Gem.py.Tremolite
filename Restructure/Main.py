@@ -22,12 +22,12 @@ def boot():
     import Gem
 
 
-@gem('Tremolite.Main')
+@gem('Restructure.Main')
 def gem():
-    require_gem('Tremolite.Core')
-    require_gem('Tremolite.Name')
-    require_gem('Tremolite.Build')
-    require_gem('Tremolite.CreateMatch')
+    require_gem('Restructure.Core')
+    require_gem('Restructure.Name')
+    require_gem('Restructure.Build')
+    require_gem('Restructure.CreateMatch')
 
 
     @share
@@ -37,4 +37,9 @@ def gem():
         #MATCH('test', PRINTABLE_MINUS("'", '\\'))
 
         FULL_MATCH('name_match', identifier)
-        create_match_code('../Tremolite/Match.gpy', 2017, 'Joy Diamond', 'Tremolite.Match')
+        create_match_code(
+                path_join(module_path[0], 'Restructure/Match.py'),
+                '2017-2018',
+                'Joy Diamond',
+                'Restructure.Match',
+            )

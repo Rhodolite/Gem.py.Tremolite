@@ -36,19 +36,8 @@ def gem():
         dot                 = NAME('dot',                 '.')
         equal_sign          = NAME('equal_sign',          '=')
         greater_than_sign   = NAME('greater_than_sign',   '>')
-        keyword_as          = NAME('as',                  'as')
-        keyword_else        = NAME('else',                'else')
-        keyword_except      = NAME('except',              'except')
-        keyword_finally     = NAME('finally',             'finally')
-        keyword_for         = NAME('for',                 'for')
-        keyword_if          = NAME('if',                  'if')
-        keyword_import      = NAME('import',              'import')
-        keyword_in          = NAME('in',                  'in')
-        keyword_is          = NAME('is',                  'is')
-        keyword_not         = NAME('not',                 'not')
-        keyword_or          = NAME('or',                  'or')
-        keyword_print       = NAME('print',               'print')
-        keyword_try         = NAME('try',                 'try')
+        keyword_language    = NAME('language',            'language')
+        keyword_pattern     = NAME('pattern',             'pattern')
         left_brace          = NAME('left_brace',          '{')                                #   }
         left_parenthesis    = NAME('left_parenthesis',    '(')                                #   )
         left_square_bracket = NAME('left_square_bracket', '[')                                #   ]
@@ -86,24 +75,19 @@ def gem():
         #
         name_match = MATCH('name_match', name)
 
+
         #
         #   Line
         #
         MATCH(
             'line_match',
             (
-                  ow
+                  G('indented', ow)
                 + P(
-                      G('keyword', keyword_import) + ow
+                      G('keyword', keyword_language) + ow
                   )
-                + Q(
-                      'comment_newline',
-                      P(
-                            slash_sign
-                          + slash_sign
-                          + G('comment', ZERO_OR_MORE(ow + ONE_OR_MORE(NOT_ANY_OF('\x00-\x1F', ' '))))
-                          + ow
-                      )
+                + P(
+                        Q('comment', '#' + ZERO_OR_MORE(DOT))
                       + G('newline', LINEFEED + END_OF_PATTERN)
                   )
             ),
@@ -114,12 +98,21 @@ def gem():
         #   Statements
         #
         MATCH(
-            'import_pattern_match',
-            ow + G('operator', period | 'import') + ow,
+            'language_pattern_match',
+            (
+                  ow
+                + G('pattern', keyword_pattern)
+                + G(comment_newline)
+            ),
         )
 
 
         #
-        #   Create ../TremoliteParser/Match.py
+        #   Create .../TremoliteParser/Match.py
         #
-        create_match_code(path_join(module_path[0], 'Match.py'), '2017-2018', 'Joy Diamond', 'TremoliteParser.Match')
+        create_match_code(
+                path_join(module_path[0], 'TremoliteParser/Match.py'),
+                '2017-2018',
+                'Joy Diamond',
+                'TremoliteParser.Match',
+            )

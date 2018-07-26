@@ -3,32 +3,37 @@
 #
 @gem('TremoliteParser.Parse1')
 def gem():
-    require_gem('TremoliteParser.Core')
+    require_gem('TremoliteParser.Elemental')
     require_gem('TremoliteParser.Match')
+    require_gem('TremoliteParser.Statement')
 
 
-    def parse_java_statement_import(m):
+    def parse_tremolite_statement_language(m):
+        if m.end('newline') != -1:
+            raise_unknown_line()
+
         j = m.end()
         s = qs()
 
-        if m.end('newline') == -1:
-            keyword = conjure_keyword_import(s[:j])
-        else:
-            keyword = conjure_keyword_import__ends_in_newline(s[:j])
+        indentation_end  = m.end('indented')
+        indentation      = conjure_indentation(s[ :  indentation_end])
+        keyword_language = conjure_keyword_language(s[indentation_end : j])
 
         wi(j)
         wj(j)
 
 
         #
-        #<name>
+        #<pattern>
         #
-        m = name_match(s, qj())
+        m = language_pattern_match(s, j)
 
         if m is none:
             raise_unknown_line()
 
-        package = conjure_name(m.group())
+        pattern_end     = m.end('pattern')
+        keyword_pattern = conjure_keyword_pattern(s[j            : pattern_end])
+        newline         = conjure_line_marker    (s[ pattern_end : ])
 
         j = m.end()
 
@@ -36,18 +41,20 @@ def gem():
         wj(j)
         #</name>
 
-        line('keyword: %s; package: %s', keyword, package)
+        return conjure_language_pattern_statement(
+                conjure_vw_frill(indentation, newline),
+                keyword_language,
+                keyword_pattern,
+            )
 
-        raise_unknown_line()
 
-
-    lookup_parse_java_line = {
-                                 'import' : parse_java_statement_import,
-                             }.get
+    lookup_parse_tremolite_line = {
+                                      'language' : parse_tremolite_statement_language,
+                                  }.get
 
 
     @share
-    def parse_java_from_path(path):
+    def parse_tremolite_from_path(path):
         data = read_text_from_path(path)
 
         parse_context = z_initialize(path, data)
@@ -59,7 +66,7 @@ def gem():
         for LOOP in parse_context:
             with parse_context:
                 for s in iterate_lines:
-                    line('s: %s', s)
+                    #line('s: %s', s)
 
                     m = line_match(s)
 
@@ -69,7 +76,7 @@ def gem():
                     keyword_s = m.group('keyword')
 
                     if keyword_s is not none:
-                        parse1_line = lookup_parse_java_line(keyword_s)
+                        parse1_line = lookup_parse_tremolite_line(keyword_s)
 
                         if parse1_line is not none:
                             append(parse1_line(m))
@@ -77,8 +84,6 @@ def gem():
                             continue
 
                         raise_unknown_line()
-
-                    raise_unknown_line()
 
                     comment_end = m.end('comment')
 

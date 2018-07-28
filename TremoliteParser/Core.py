@@ -16,10 +16,12 @@ def module():
     require_module('Capital.System')
     require_module('Capital.Traceback')
     require_module('CoreParser.ActionWord')
+    require_module('CoreParser.Atom')
     require_module('CoreParser.BookcaseCoupleTwig')
     require_module('CoreParser.ClassOrder')
     require_module('CoreParser.CrystalComment')
     require_module('CoreParser.CrystalIndentation')
+    require_module('CoreParser.DualExpressionStatement')
     require_module('CoreParser.DualFrill')
     require_module('CoreParser.DualTwig')
     require_module('CoreParser.DumpToken')
@@ -30,6 +32,7 @@ def module():
     require_module('CoreParser.Nub')
     require_module('CoreParser.TestTree')
     require_module('CoreParser.Tokenizer')
+    require_module('CoreParser.TripleFrill')
 
 
     from Capital import create_cache, create_DelayedFileOutput, create_SimpleStringOutput, create_StringOutput
@@ -42,12 +45,14 @@ def module():
     from Capital import produce_conjure_unique_triple, produce_conjure_unique_triple__312
     from Capital import program_exit, read_text_from_path, return_self, slice_all, StringOutput
     from CoreParser import BookcaseCoupleTwig
-    from CoreParser import CLASS_ORDER__NORMAL_TOKEN, conjure_any_comment_line, conjure_empty_line
+    from CoreParser import CLASS_ORDER__NORMAL_TOKEN
+    from CoreParser import conjure_any_comment_line, conjure_double_quote, conjure_empty_line
     from CoreParser import conjure_indentation, conjure_keyword_language, conjure_line_marker, conjure_name
-    from CoreParser import conjure_nub, conjure_vw_frill, construct__123
-    from CoreParser import DualTwig, dump_token, KeywordAndOperatorBase
-    from CoreParser import la, parse_context, ParserTrunk
-    from CoreParser import produce_conjure_bookcase_couple_twig, produce_conjure_action_word
+    from CoreParser import conjure_nub, conjure_single_quote, conjure_vw_frill, conjure_vwx_frill, construct__123
+    from CoreParser import DualExpressionStatement, DualTwig, dump_token, empty_indentation, KeywordAndOperatorBase
+    from CoreParser import la, LINE_MARKER, parse_context, ParserTrunk
+    from CoreParser import produce_dual_expression_statement, produce_conjure_bookcase_couple_twig
+    from CoreParser import produce_conjure_action_word
     from CoreParser import qd, qi, qj, qk, ql, qn, qs, raise_unknown_line, test_count_newlines, test_identical_output
     from CoreParser import wd, wd0, wd1, wi, wj, wk, wn, ws, z_initialize
 
@@ -63,6 +68,7 @@ def module():
         #   Types (CoreParser)
         #
         'BookcaseCoupleTwig',       BookcaseCoupleTwig,
+        'DualExpressionStatement',  DualExpressionStatement,
         'DualTwig',                 DualTwig,
         'KeywordAndOperatorBase',   KeywordAndOperatorBase,
         'ParserTrunk',              ParserTrunk,
@@ -71,6 +77,9 @@ def module():
         #
         #   Functions (Capital)
         #
+        'conjure_double_quote',                 conjure_double_quote,
+        'conjure_single_quote',                 conjure_single_quote,
+        'conjure_vwx_frill',                    conjure_vwx_frill,
         'create_cache',                         create_cache,
 #       'create_DelayedFileOutput',             create_DelayedFileOutput,
 #       'create_SimpleStringOutput',            create_SimpleStringOutput,
@@ -80,15 +89,15 @@ def module():
         'print_exception_chain',                print_exception_chain,
 #       'produce_conjure_dual__21',             produce_conjure_dual__21,
 #       'produce_conjure_dual',                 produce_conjure_dual,
+#       'produce_conjure_quadruple__4123',      produce_conjure_quadruple__4123,
 #       'produce_conjure_single',               produce_conjure_single,
 #       'produce_conjure_triple__312',          produce_conjure_triple__312,
 #       'produce_conjure_triple',               produce_conjure_triple,
 #       'produce_conjure_tuple',                produce_conjure_tuple,
 #       'produce_conjure_unique_dual__21',      produce_conjure_unique_dual__21,
         'produce_conjure_unique_dual',          produce_conjure_unique_dual,
-#       'produce_conjure_quadruple__4123',      produce_conjure_quadruple__4123,
-#       'produce_conjure_unique_triple',        produce_conjure_unique_triple,
         'produce_conjure_unique_triple__312',   produce_conjure_unique_triple__312,
+#       'produce_conjure_unique_triple',        produce_conjure_unique_triple,
         'program_exit',                         program_exit,
         'read_text_from_path',                  read_text_from_path,
 #       'return_self',                          return_self,
@@ -110,6 +119,7 @@ def module():
         'la',                                       la,
         'produce_conjure_action_word',              produce_conjure_action_word,
         'produce_conjure_bookcase_couple_twig',     produce_conjure_bookcase_couple_twig,
+        'produce_dual_expression_statement',        produce_dual_expression_statement,
         'qd',                                       qd,
         'qi',                                       qi,
         'qj',                                       qj,
@@ -141,5 +151,7 @@ def module():
         #   Values (CoreParser)
         #
         'CLASS_ORDER__NORMAL_TOKEN',    CLASS_ORDER__NORMAL_TOKEN,
+        'empty_indentation',            empty_indentation,
+        'LINE_MARKER',                  LINE_MARKER,
         'parse_context',                parse_context,
     )

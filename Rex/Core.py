@@ -1,18 +1,18 @@
 #
 #   Copyright (c) 2017-2018 Joy Diamond.  All rights reserved.
 #
-@gem('Rex.Core')
-def gem():
-    require_gem('Gem.Codec')
-    require_gem('Gem.Map')
+@module('Rex.Core')
+def module():
+    require_module('Capital.Codec')
+    require_module('Capital.Map')
 
 
-    from Gem import encode_ascii, first_map_item
+    from Capital import encode_ascii, first_map_item
 
 
     share(
         #
-        #   Imported functions (Gem)
+        #   Imported functions (Capital)
         #
         'encode_ascii',     encode_ascii,
         'first_map_item',   first_map_item,

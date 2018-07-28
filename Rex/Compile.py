@@ -1,9 +1,9 @@
 #
 #   Copyright (c) 2017-2018 Joy Diamond.  All rights reserved.
 #
-@gem('Rex.Compile')
-def gem():
-    require_gem('Rex.Core')
+@module('Rex.Compile')
+def module():
+    require_module('Rex.Core')
 
 
     PythonRegularExpressionBedrock             = import_module('_sre')

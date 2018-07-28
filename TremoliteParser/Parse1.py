@@ -1,11 +1,11 @@
 #
 #   Copyright (c) 2017-2018 Joy Diamond.  All rights reserved.
 #
-@gem('TremoliteParser.Parse1')
-def gem():
-    require_gem('TremoliteParser.Elemental')
-    require_gem('TremoliteParser.Match')
-    require_gem('TremoliteParser.Statement')
+@module('TremoliteParser.Parse1')
+def module():
+    require_module('TremoliteParser.Elemental')
+    require_module('TremoliteParser.Match')
+    require_module('TremoliteParser.Statement')
 
 
     def parse_tremolite_statement_language(m):

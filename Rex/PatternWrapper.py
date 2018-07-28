@@ -1,9 +1,9 @@
 #
 #   Copyright (c) 2017-2018 Joy Diamond.  All rights reserved.
 #
-@gem('Rex.PatternWrapper')
-def gem():
-    require_gem('Rex.Core')
+@module('Rex.PatternWrapper')
+def module():
+    require_module('Rex.Core')
 
 
     show = true

@@ -1,12 +1,12 @@
 #
 #   Copyright (c) 2017-2018 Joy Diamond.  All rights reserved.
 #
-@gem('TremoliteParser.Pattern')
-def gem():
-    require_gem('Restructure.Build')
-    require_gem('Restructure.CreateMatch')
-    require_gem('Restructure.Name')
-    require_gem('TremoliteParser.Core')
+@module('TremoliteParser.Pattern')
+def module():
+    require_module('Restructure.Build')
+    require_module('Restructure.CreateMatch')
+    require_module('Restructure.Name')
+    require_module('TremoliteParser.Core')
 
 
     from Restructure import create_match_code, ANY_OF, BACKSLASH, DOT, EMPTY, END_OF_PATTERN, EXACT

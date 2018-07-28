@@ -1,10 +1,10 @@
 #
 #   Copyright (c) 2017-2018 Joy Diamond.  All rights reserved.
 #
-@gem('Restructure.Build')
-def gem():
-    require_gem('Restructure.Core')
-    require_gem('Restructure.Match')
+@module('Restructure.Build')
+def module():
+    require_module('Restructure.Core')
+    require_module('Restructure.Match')
 
 
     show = false

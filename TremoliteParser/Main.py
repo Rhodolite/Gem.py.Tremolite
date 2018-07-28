@@ -16,33 +16,33 @@ def boot():
     path_0 = module_path[0]
 
     module_path.insert(0, path_absolute(path_join(path_0, '../')))
-    module_path.insert(1, path_absolute(path_join(path_0, '../../Gem')))
+    module_path.insert(1, path_absolute(path_join(path_0, '../../Capital')))
     module_path.insert(2, path_absolute(path_join(path_0, '../../Parser')))
 
 
-    import Gem
+    import Capital
 
 
-@gem('TremoliteParser.Main')
-def gem():
-    require_gem('Gem.Global')
+@module('TremoliteParser.Main')
+def module():
+    require_module('Capital.Global')
 
 
-    from Gem import gem_global
+    from Capital import capital_global
 
 
-    gem_global.crystal_parser   = true
-    gem_global.tremolite_parser = true
+    capital_global.crystal_parser   = true
+    capital_global.tremolite_parser = true
 
 
-    require_gem('TremoliteParser.Core')
+    require_module('TremoliteParser.Core')
 
 
     show = 0
 
 
     def command_development():
-        require_gem('TremoliteParser.Development')
+        require_module('TremoliteParser.Development')
 
         development()
 

@@ -16,18 +16,18 @@ def boot():
     path_0 = module_path[0]
 
     module_path.insert(0, path_absolute(path_join(path_0, '../')))
-    module_path.insert(1, path_absolute(path_join(path_0, '../../Gem')))
+    module_path.insert(1, path_absolute(path_join(path_0, '../../Capital')))
 
 
-    import Gem
+    import Capital
 
 
-@gem('Restructure.Main')
-def gem():
-    require_gem('Restructure.Core')
-    require_gem('Restructure.Name')
-    require_gem('Restructure.Build')
-    require_gem('Restructure.CreateMatch')
+@module('Restructure.Main')
+def module():
+    require_module('Restructure.Core')
+    require_module('Restructure.Name')
+    require_module('Restructure.Build')
+    require_module('Restructure.CreateMatch')
 
 
     @share

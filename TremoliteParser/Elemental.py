@@ -1,8 +1,8 @@
 #
 #   Copyright (c) 2017-2018 Joy Diamond.  All rights reserved.
 #
-@gem('TremoliteParser.Elemental')
-def gem():
+@module('TremoliteParser.Elemental')
+def module():
     @share
     class KeywordPattern(KeywordAndOperatorBase):
         __slots__    = (())

@@ -1,9 +1,9 @@
 #
 #   Copyright (c) 2017-2018 Joy Diamond.  All rights reserved.
 #
-@gem('Rex.Parse')
-def gem():
-    require_gem('Rex.Core')
+@module('Rex.Parse')
+def module():
+    require_module('Rex.Core')
 
 
     PythonRegularExpressionCompile = import_module('sre_compile')

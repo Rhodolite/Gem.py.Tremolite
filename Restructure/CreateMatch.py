@@ -1,9 +1,9 @@
 #
 #   Copyright (c) 2017-2018 Joy Diamond.  All rights reserved.
 #
-@gem('Restructure.CreateMatch')
-def gem():
-    require_gem('Restructure.Name')
+@module('Restructure.CreateMatch')
+def module():
+    require_module('Restructure.Name')
 
 
     @export
@@ -32,17 +32,17 @@ def gem():
             f.line('#')
             f.line('#   Copyright (c) %s %s.  All rights reserved.', year, author)
             f.line('#')
-            f.line('@gem(%r)', module_name)
+            f.line('@module(%r)', module_name)
 
-            with f.indent('def gem():'):
-                f.line('require_gem(%r)', 'Gem.System')
-                f.line('require_gem(%r)', 'Rex.Compile')
+            with f.indent('def module():'):
+                f.line('require_module(%r)', 'Capital.System')
+                f.line('require_module(%r)', 'Rex.Compile')
 
                 if debug:
-                    f.line('require_gem(%r)', 'Rex.PatternWrapper')
+                    f.line('require_module(%r)', 'Rex.PatternWrapper')
 
                 f.blank2()
-                f.line('from Gem import python_version')
+                f.line('from Capital import python_version')
 
                 if debug:
                     f.line('from Rex import compile_regular_expression, create_wrapped_match_function')
@@ -125,7 +125,7 @@ def gem():
                 f.blank2()
 
                 with f.indent('else:'):
-                    f.line('require_gem(%r)', 'Rex.Parse')
+                    f.line('require_module(%r)', 'Rex.Parse')
                     f.blank2()
                     f.line('from Rex import parse_ascii_regular_expression')
 

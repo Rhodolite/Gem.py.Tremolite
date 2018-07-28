@@ -1,9 +1,9 @@
 #
 #   Copyright (c) 2017-2018 Joy Diamond.  All rights reserved.
 #
-@gem('TremoliteParser.Statement')
-def gem():
-    require_gem('TremoliteParser.Core')
+@module('TremoliteParser.Statement')
+def module():
+    require_module('TremoliteParser.Core')
 
 
     class LanguagePattern(BookcaseCoupleTwig):

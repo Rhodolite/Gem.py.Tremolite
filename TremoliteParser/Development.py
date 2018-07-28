@@ -1,8 +1,8 @@
 #
 #   Copyright (c) 2017-2018 Joy Diamond.  All rights reserved.
 #
-@gem('TremoliteParser.Development')
-def gem():
+@module('TremoliteParser.Development')
+def module():
     show = 7
 
 
@@ -10,11 +10,11 @@ def gem():
     def development():
         path = 'test.y'
 
-        require_gem('TremoliteParser.Pattern')
+        require_module('TremoliteParser.Pattern')
 
         create__tremolite_parser__match()
 
-        require_gem('TremoliteParser.Parse')                        #   Must be after `create__tremolite_parser__match`
+        require_module('TremoliteParser.Parse')                         #   Must be after `create__tremolite_parser__match`
 
         tree = parse_tremolite(path, test = 7, show = 0)
 

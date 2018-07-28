@@ -1,8 +1,8 @@
 #
 #   Copyright (c) 2017-2018 Joy Diamond.  All rights reserved.
 #
-@gem('Restructure.Name')
-def gem():
+@module('Restructure.Name')
+def module():
     debug = false
 
 

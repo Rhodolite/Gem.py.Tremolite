@@ -1,13 +1,13 @@
 #
 #   Copyright (c) 2017-2018 Joy Diamond.  All rights reserved.
 #
-@gem('Restructure.Match')
-def gem():
-    require_gem('Gem.System')
-    require_gem('Rex.Compile')
+@module('Restructure.Match')
+def module():
+    require_module('Capital.System')
+    require_module('Rex.Compile')
 
 
-    from Gem import python_version
+    from Capital import python_version
     from Rex import compile_regular_expression
 
 
@@ -56,7 +56,7 @@ def gem():
 
 
     else:
-        require_gem('Rex.Parse')
+        require_module('Rex.Parse')
 
 
         from Rex import parse_ascii_regular_expression

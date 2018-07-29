@@ -6,8 +6,45 @@ def module():
     require_module('TremoliteParser.Elemental')
     require_module('TremoliteParser.Match')
     require_module('TremoliteParser.Statement')
+    require_module('TremoliteParser.Tokenize1Atom')
+    require_module('TremoliteParser.DualExpressionStatement')
 
 
+    def parse_tremolite_statement_pattern(m):
+        if m.end('newline') != -1:
+            raise_unknown_line()
+
+        j = m.end()
+        s = qs()
+
+        indentation_end  = m.end('indented')
+        name_end         = m.end('name')
+        colon_equal_end  = m.end('colon_equal')
+
+        indentation = conjure_indentation(s[                : indentation_end])
+        name        = conjure_name       (s[indentation_end : name_end])
+        colon_equal = conjure_colon_equal(s[name_end        : j])
+
+        wi(j)
+        wj(j)
+
+        #
+        #   <atom>
+        #
+        m = atom_match(s, j)
+
+        if m is none:
+            raise_unknown_line()
+
+        atom = analyze_atom(m)
+        newline = qn()
+
+        if newline is none:
+            raise_unknown_line()
+
+        return conjure_pattern_statement(indentation, name, colon_equal, atom, newline)
+
+        
     def parse_tremolite_statement_language(m):
         if m.end('newline') != -1:
             raise_unknown_line()
@@ -84,6 +121,14 @@ def module():
                             continue
 
                         raise_unknown_line()
+
+                    name_s = m.group('name')
+
+                    if name_s is not none:
+                        append(parse_tremolite_statement_pattern(m))
+
+                        assert qd() is 0
+                        continue
 
                     comment_end = m.end('comment')
 

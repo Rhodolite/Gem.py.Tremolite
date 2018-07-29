@@ -7,6 +7,7 @@ def module():
 
 
     class LanguagePattern(BookcaseCoupleTwig):
+        __slots__    = (())
         display_name = 'language-pattern'
         is_herd      = false
         is_statement = true
@@ -15,11 +16,7 @@ def module():
     LanguagePattern.keyword_language = LanguagePattern.a
     LanguagePattern.keyword_pattern  = LanguagePattern.b
 
-    
-    conjure_language_pattern_statement = produce_conjure_bookcase_couple_twig(
-            'language-pattern',
-            LanguagePattern,
-        )
+    conjure_language_pattern_statement = produce_conjure_bookcase_couple_twig('language-pattern', LanguagePattern)
 
 
     export(

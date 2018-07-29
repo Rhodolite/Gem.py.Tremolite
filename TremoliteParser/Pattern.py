@@ -30,6 +30,7 @@ def module():
         #
         assign_operator     = NAME('assign_operator',     '=')
         colon               = NAME('colon',               ':')
+        colon_equal         = NAME('colon_equal',         ':=')
         comma               = NAME('comma',               ',')
         comment_newline     = NAME('comment_newline',     P('#' + ZERO_OR_MORE(DOT)) + LINEFEED + END_OF_PATTERN)
         compare_equal       = NAME('compare_equal',       '==')
@@ -58,10 +59,14 @@ def module():
         period              = NAME('period', '.')
 
 
+        double_quote = NAME('double_quote', '"' + ONE_OR_MORE(PRINTABLE_MINUS('"', '\\')) + '"')
+        single_quote = NAME('single_quote', "'" + ONE_OR_MORE(PRINTABLE_MINUS("'", '\\')) + "'")
+
+
         #   [(
-        right_brace          = NAME('right_brace',             '}')
-        right_parenthesis    = NAME('right_parenthesis',       ')')
-        right_square_bracket = NAME('right_square_bracket',    ']')
+        right_brace          = NAME('right_brace',          '}')
+        right_parenthesis    = NAME('right_parenthesis',    ')')
+        right_square_bracket = NAME('right_square_bracket', ']')
 
 
         #
@@ -84,7 +89,8 @@ def module():
             (
                   G('indented', ow)
                 + P(
-                      G('keyword', keyword_language) + ow
+                        G('keyword', keyword_language) + ow
+                      | G(name) + ow + G(colon_equal) + ow
                   )
                 + P(
                         Q('comment', '#' + ZERO_OR_MORE(DOT))
@@ -104,6 +110,17 @@ def module():
                 + G('pattern', keyword_pattern)
                 + G(comment_newline)
             ),
+        )
+
+
+        #
+        #   Expressions
+        #
+        MATCH(
+            'atom_match',
+            (
+                  G('quote', double_quote | single_quote) + ow  #   Must preceed 'name'
+            ) + Q('newline', comment_newline),
         )
 
 

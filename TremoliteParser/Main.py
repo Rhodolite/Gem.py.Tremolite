@@ -25,10 +25,7 @@ def boot():
 
 @module('TremoliteParser.Main')
 def module():
-    require_module('Capital.Global')
-
-
-    from Capital import capital_global
+    transport('Capital.Global',                     'capital_global')
 
 
     capital_global.crystal_parser   = true

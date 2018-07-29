@@ -3,21 +3,11 @@
 #
 @module('Rex.Core')
 def module():
-    require_module('Capital.Codec')
-    require_module('Capital.Map')
-
-
-    from Capital import encode_ascii, first_map_item
+    transport('Capital.Codec',                      'encode_ascii')
+    transport('Capital.Map',                        'first_map_item')
 
 
     share(
-        #
-        #   Imported functions (Capital)
-        #
-        'encode_ascii',     encode_ascii,
-        'first_map_item',   first_map_item,
-
-
         #
         #   Values
         #

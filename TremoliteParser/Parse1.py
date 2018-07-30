@@ -44,7 +44,7 @@ def module():
 
         return conjure_pattern_statement(indentation, name, colon_equal, atom, newline)
 
-        
+
     def parse_tremolite_statement_language(m):
         if m.end('newline') != -1:
             raise_unknown_line()
